@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>To Do List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+    }
+
+    /* Include the padding and border in an element's total width and height */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Remove margins and padding from the list */
+    /* Style the close button */
+    .close {
+      right: 0;
+      top: 0;
+    }
+
+    .close:hover {
+      background-color: #f44336;
+      color: white;
+    }
+
+    /* Style the header */
+    .header {
+      background-color: #329ba8;
+      padding: 30px 40px;
+      color: white;
+      text-align: center;
+    }
+
+    /* Clear floats after the header */
+    .header:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Style the input */
+    input {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      width: 75%;
+      padding: 10px;
+      float: left;
+      font-size: 16px;
+    }
+
+    /* Style the "Add" button */
+    .addBtn {
+      padding: 9px;
+      width: 25%;
+      background: white;
+      color: #555;
+      float: left;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 2%;
+      border: 2px, #329ba8;
+    }
+
+    .addBtn:hover {
+      background-color: #bbb;
+    }
+
+    .container{
+      margin: 0;
+      padding: 0;
+    }
+
+    table{
+      margin-top: 25px;      
+      font-size: 18px;
+      transition: 0.2s;
+      padding-left: 22%;
+  
+    }
+
+    th{
+      padding-bottom: 15px;
+      font: 100;
+      color:slategrey;
+
+    }
+    td{
+      direction: ltr;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    #task-name{
+      width: 512px;
+      height: 10px;
+    }
+    tbody:hover{
+      background-color: #bbb;
+    }
+  </style>
+</head>
+
+<div>
+
+  <div  class="header">
+    <h2 style="margin:5px">To Do List</h2>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="text" name="task" id="myInput" placeholder="Nomei um Afazer...">
+      <button type="submit" class="addBtn">Adicionar</button>
+    </form>
+  </div>
+<div class="container">
+  <table>
+    <thead>
+      <th>Afazer</th>
+      <th>Data de Criação</th>
+      <th>Ações</th>
+    </thead>
+
+    {% for task in tasks reversed %}
+    <tbody>
+      <td id="task-name">{{task.task | title }}</td>
+      <td>{{ task.inclusion_date }}</td>
+      <td class="close"> <a type="button"  style="text-decoration: none; color: black;"
+            href="delete/{{task.id}}">Excluir</a></td>
+    </tbody>
+    {% endfor %}
+
+  </table>
+</div>
+</body>
+
+</html>
